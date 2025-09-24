@@ -1,5 +1,10 @@
 # This .gitignore file should be placed at the root of your Unity project directory
 #
+
+#custom for this packet
+*.meta
+!package.json.meta
+
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
 .utmp/
