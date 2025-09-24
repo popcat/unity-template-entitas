@@ -1,1 +1,1 @@
-# entitas-template
+# entitas-template-features
