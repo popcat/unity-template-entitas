@@ -11,8 +11,13 @@ namespace BartekNizio.Unity.Template.Entitas
 		public SystemSequence LoadSceneSequence(int sceneIndex)
 		{
 			var ss = new SystemSequence(_contexts);
-			ss.Add((c)=> c.meta.CreateEntity().AddLoadSceneRequest(sceneIndex), 
-				(c,e) => !c.meta.hasSceneLoading && !c.meta.hasLoadSceneRequest, $"Load Scene {sceneIndex}");
+			ss.Add((c)=>
+				{
+					var loadSceneEntity = c.meta.CreateEntity();
+					loadSceneEntity.isSceneLoadRequest = true;
+					loadSceneEntity.AddIndex(sceneIndex);
+				}, 
+				(c,e) => c.meta.isSceneLoadCompleted, $"Load Scene {sceneIndex}");
 			return ss;
 		}
 		
@@ -22,8 +27,12 @@ namespace BartekNizio.Unity.Template.Entitas
 			var scene = SceneManager.GetSceneByBuildIndex(sceneIndex);
 			if (scene.isLoaded == false) return ss;
 			
-			ss.Add((c)=> c.meta.CreateEntity().AddUnloadSceneRequest(sceneIndex), 
-				(c,e) => !c.meta.hasSceneUnloading && !c.meta.hasUnloadSceneRequest, $"UnLoad Scene {sceneIndex}");
+			ss.Add((c)=> {
+					var loadSceneEntity = c.meta.CreateEntity();
+					loadSceneEntity.isSceneUnloadRequest = true;
+					loadSceneEntity.AddIndex(sceneIndex);
+				}, 
+				(c,e) => c.meta.isSceneUnloadCompleted, $"UnLoad Scene {sceneIndex}");
 			return ss;
 		}
 

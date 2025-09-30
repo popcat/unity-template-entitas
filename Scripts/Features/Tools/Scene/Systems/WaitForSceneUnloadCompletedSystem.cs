@@ -14,7 +14,10 @@ namespace BartekNizio.Unity.Template.Entitas
 		{
 			if(_contexts.meta.hasSceneUnloading == false) return;
 			if(_contexts.meta.sceneUnloading.loadOperation.isDone == false) return;
-			_contexts.meta.sceneUnloadingEntity.Destroy();
+			
+			var unloadEntity = _contexts.meta.sceneUnloadRequestEntity;
+			unloadEntity.RemoveSceneUnloading();
+			unloadEntity.isSceneUnloadCompleted = true;
 		}
 	}
 }

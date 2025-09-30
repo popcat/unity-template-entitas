@@ -15,23 +15,24 @@ namespace BartekNizio.Unity.Template.Entitas
 
 		protected override ICollector<MetaEntity> GetTrigger(IContext<MetaEntity> context)
 		{
-			return context.CreateCollector(MetaMatcher.LoadSceneRequest);
+			return context.CreateCollector(MetaMatcher.SceneLoadRequest);
 		}
 
 		protected override bool Filter(MetaEntity entity)
 		{
-			return entity.hasLoadSceneRequest;
+			return entity.isSceneLoadRequest;
 		}
 
 		protected override void Execute(List<MetaEntity> entities)
 		{
-			var sceneIndex = _contexts.meta.loadSceneRequest.sceneIndex;
+			var loadSceneEntity = _contexts.meta.sceneLoadRequestEntity;
+			var sceneIndex = loadSceneEntity.index.Value;
 			var loadOperation = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
 			loadOperation.completed += _ => {
 				SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(sceneIndex));
 			};
-			_contexts.meta.CreateEntity().AddSceneLoading(sceneIndex,loadOperation);
-			_contexts.meta.loadSceneRequestEntity.Destroy();
+			loadSceneEntity.AddSceneLoading(loadOperation);
+			loadSceneEntity.isSceneLoadRequest = false;
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace BartekNizio.Unity.Template.Entitas
 {
-	public class JobInstaller : Installer<JobInstaller>
+	public class JobsInstaller : Installer<JobsInstaller>
 	{
 		public override void InstallBindings()
 		{

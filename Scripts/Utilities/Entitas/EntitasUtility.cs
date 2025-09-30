@@ -12,8 +12,8 @@ namespace BartekNizio.Unity.Template.Entitas
             var closestDistance = float.MaxValue;
             foreach (var targetEntity in targetEntities)
             {
-                var distance = Vector3.SqrMagnitude(sourceEntity.transform.instance.position -
-                                                    targetEntity.transform.instance.position);
+                var distance = Vector3.SqrMagnitude(sourceEntity.transform.Instance.position -
+                                                    targetEntity.transform.Instance.position);
                 if (distance < closestDistance)
                 {
                     closestEntity = targetEntity;

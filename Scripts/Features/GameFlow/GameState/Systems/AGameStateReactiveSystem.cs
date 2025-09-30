@@ -6,7 +6,7 @@ namespace BartekNizio.Unity.Template.Entitas
 	public abstract class AGameStateReactiveSystem : ReactiveSystem<MetaEntity>
 	{
 		protected readonly Contexts _contexts;
-
+		
 		public AGameStateReactiveSystem(Contexts contexts) : base(contexts.meta)
 		{
 			_contexts = contexts;

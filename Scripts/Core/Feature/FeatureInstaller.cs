@@ -11,7 +11,7 @@ namespace BartekNizio.Unity.Template.Entitas
 
 		private void InstallFeatures()
 		{
-			//Features to install goes there...
+			FeatureInstallers.Install(Container);
 		}
 	}
 }

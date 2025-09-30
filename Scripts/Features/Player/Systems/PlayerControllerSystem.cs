@@ -26,7 +26,7 @@ namespace BartekNizio.Unity.Template.Entitas
             player.ReplaceVehicleMovementPower(1);
 
 
-            var playerPos = _contexts.game.mainCamera.instance.WorldToScreenPoint(player.transform.instance.position);
+            var playerPos = _contexts.game.mainCameraEntity.camera.Instance.WorldToScreenPoint(player.transform.Instance.position);
             var cursorPos = _inputConfig.cursorPositionInputAction.ReadValue<Vector2>();
             var lookDir = new Vector3(cursorPos.x, 0, cursorPos.y) - new Vector3(playerPos.x, 0, playerPos.y);
             var lookRotation = Quaternion.LookRotation(lookDir);

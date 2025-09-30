@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -744,6 +745,7 @@ namespace BartekNizio.Unity.Template.Entitas
             Debug.Assert(_comparer is not null);
             Debug.Assert(0 <= nodeIndex && nodeIndex < _size);
 
+            if (_comparer == null) throw new Exception(); 
             IComparer<TPriority> comparer = _comparer;
             (TElement Element, TPriority Priority)[] nodes = _nodes;
 
@@ -825,7 +827,8 @@ namespace BartekNizio.Unity.Template.Entitas
 
             Debug.Assert(_comparer is not null);
             Debug.Assert(0 <= nodeIndex && nodeIndex < _size);
-
+            if (_comparer == null) throw new Exception();
+            
             IComparer<TPriority> comparer = _comparer;
             (TElement Element, TPriority Priority)[] nodes = _nodes;
             int size = _size;

@@ -17,25 +17,26 @@ namespace BartekNizio.Unity.Template.Entitas
 
 		protected override ICollector<MetaEntity> GetTrigger(IContext<MetaEntity> context)
 		{
-			return context.CreateCollector(MetaMatcher.UnloadSceneRequest);
+			return context.CreateCollector(MetaMatcher.SceneUnloadRequest);
 		}
 
 		protected override bool Filter(MetaEntity entity)
 		{
-			return entity.hasUnloadSceneRequest;
+			return entity.isSceneUnloadRequest;
 		}
 
 		protected override void Execute(List<MetaEntity> entities)
 		{
 			_contextService.StartContextReset(_contexts.game);
-			var sceneIndex = _contexts.meta.unloadSceneRequest.sceneIndex;
+			var unloadEntity = _contexts.meta.sceneUnloadRequestEntity;
+			var sceneIndex = unloadEntity.index.Value;
 			var op = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByBuildIndex(sceneIndex));
 			op.completed += _ => {
 				_contextService.EndContextReset(_contexts.game);
 			};
 			
-			_contexts.meta.CreateEntity().AddSceneUnloading(sceneIndex, op);
-			_contexts.meta.unloadSceneRequestEntity.Destroy();
+			unloadEntity.AddSceneUnloading(op);
+			unloadEntity.isSceneUnloadRequest = false;
 		}
 	}
 }

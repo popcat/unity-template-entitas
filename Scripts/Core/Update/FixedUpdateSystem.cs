@@ -4,6 +4,7 @@
 	{
 		public FixedUpdateSystem(Contexts contexts)
 		{
+			Add(new FixedUpdateFeatures(contexts));
 		}
 	}
 }

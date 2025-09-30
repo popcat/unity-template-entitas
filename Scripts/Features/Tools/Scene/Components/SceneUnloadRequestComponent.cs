@@ -4,8 +4,7 @@ using Entitas.CodeGeneration.Attributes;
 namespace BartekNizio.Unity.Template.Entitas
 {
 	[Meta, Unique]
-	public class UnloadSceneRequestComponent : IComponent
+	public class SceneUnloadRequestComponent : IComponent
 	{
-		public int sceneIndex;
 	}
 }

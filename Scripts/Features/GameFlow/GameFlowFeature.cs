@@ -6,6 +6,7 @@
 		{
 			Add(new GameStateFeature(contexts));
 			Add(new LevelStateFeature(contexts));
+			Add(new LevelMapFeature(contexts));
 		}
 	}
 }

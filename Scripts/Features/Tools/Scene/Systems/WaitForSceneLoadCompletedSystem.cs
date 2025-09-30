@@ -1,5 +1,4 @@
 ﻿using Entitas;
-using UnityEngine.SceneManagement;
 
 namespace BartekNizio.Unity.Template.Entitas
 {
@@ -15,8 +14,10 @@ namespace BartekNizio.Unity.Template.Entitas
 		{
 			if(_contexts.meta.hasSceneLoading == false) return;
 			if(_contexts.meta.sceneLoading.loadOperation.isDone == false) return;
-			_contexts.meta.sceneLoadingEntity.Destroy();
-			var s = SceneManager.GetActiveScene();
+
+			var loadSceneEntity = _contexts.meta.sceneLoadingEntity;
+			loadSceneEntity.isSceneLoadCompleted = true;
+			loadSceneEntity.RemoveSceneLoading();
 		}
 	}
 }
