@@ -1,5 +1,5 @@
 {
-  "name": "com.barteknizio.entitas-template-features",
+  "name": "com.barteknizio.unity-entitas-template",
   "version": "0.0.1",
   "displayName": "Entitas Template Features",
   "description": "Package used for development with Entitas in Unity. Contains common components and features.",

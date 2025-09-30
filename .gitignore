@@ -2,6 +2,14 @@
 #
 
 #custom for this packet
+Art/
+Configs/
+Physics/
+Shaders/
+Prefabs/
+Scenes/
+Scripts/Generated
+
 *.meta
 !package.json.meta
 

@@ -11,19 +11,15 @@ namespace BartekNizio.Unity.Template.Entitas
 		public readonly List<SystemSequencePart> Sequence;
 
 		private readonly Contexts _contexts;
+		private readonly MetaEntity _systemEntity;
 		private event Action<Contexts> OnCompleted;
 
 		public SystemSequence(Contexts contexts)
 		{
-			Sequence = new List<SystemSequencePart>();
 			_contexts = contexts;
-		}
-
-		public MetaEntity CreateEntity()
-		{
-			var e = _contexts.meta.CreateEntity();
-			e.AddSystemSequence(this);
-			return e;
+			Sequence = new List<SystemSequencePart>();
+			_systemEntity = _contexts.meta.CreateEntity();
+			_systemEntity.AddSystemSequence(this);
 		}
 
 		public void Start()
@@ -55,6 +51,7 @@ namespace BartekNizio.Unity.Template.Entitas
 			}
 			
 			Sequence.AddRange(systemSequence.Sequence);
+			systemSequence.Abort();
 		}
 
 		public void AddOnCompleted(Action<Contexts> action)
@@ -76,6 +73,12 @@ namespace BartekNizio.Unity.Template.Entitas
 
 			PlaySequencePart();
 			return true;
+		}
+
+		public void Abort()
+		{
+			_systemEntity.Destroy();
+			OnCompleted = null;
 		}
 
 		private void PlaySequencePart()
