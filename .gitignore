@@ -2,12 +2,9 @@
 #
 
 #custom for this packet
-Art/
-Configs/
-Physics/
-Shaders/
-Prefabs/
-Scenes/
+
+/*/
+!/Scripts
 Scripts/Generated
 
 *.meta
