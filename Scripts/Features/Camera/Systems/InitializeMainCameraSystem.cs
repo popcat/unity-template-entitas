@@ -28,7 +28,6 @@ namespace BartekNizio.Unity.Template.Entitas
             var mainCamera = Camera.main;
             if (mainCamera == null)
             {
-                DebugLogger.LogWarning("Main camera not found");
                 return;
             }
 

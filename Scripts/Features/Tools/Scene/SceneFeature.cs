@@ -9,6 +9,5 @@
 			Add(new WaitForSceneUnloadCompletedSystem(contexts));
 			Add(new WaitForSceneLoadCompletedSystem(contexts));
 		}
-		
 	}
 }

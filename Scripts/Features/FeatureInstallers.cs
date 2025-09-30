@@ -6,9 +6,9 @@ namespace BartekNizio.Unity.Template.Entitas
     {
         public override void InstallBindings()
         {
-            Container.Bind<GameObjectInstaller>().AsSingle().NonLazy();
-            Container.Bind<JobsInstaller>().AsSingle().NonLazy();
-            Container.Bind<SceneInstaller>().AsSingle().NonLazy();
+            GameObjectInstaller.Install(Container);
+            JobsInstaller.Install(Container);
+            SceneInstaller.Install(Container);
         }
     }
 }

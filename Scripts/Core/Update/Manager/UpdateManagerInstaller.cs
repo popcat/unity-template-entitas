@@ -6,10 +6,9 @@ namespace BartekNizio.Unity.Template.Entitas
 	{
 		public override void InstallBindings()
 		{
-			var updateManager = FindFirstObjectByType<UpdateManager>();
-			Container.BindInstance( updateManager );
 			Container.Bind<UpdateSystem>().AsSingle();
 			Container.Bind<FixedUpdateSystem>().AsSingle();
+			Container.BindInstance( FindFirstObjectByType<UpdateManager>() );
 		}
 	}
 }
