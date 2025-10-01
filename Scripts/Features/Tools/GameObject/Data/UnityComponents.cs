@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using Entitas;
 using UnityEngine;
 
 namespace BartekNizio.Unity.Template.Entitas
 {
-    public class AddUnityComponents
+    public struct AddUnityComponents
     {
+        public GameObject GameObject;
+        public Transform Transform;
         public Animator Animator;
         public Collider Collider;
         public List<Collider> Colliders;
@@ -13,8 +16,10 @@ namespace BartekNizio.Unity.Template.Entitas
         public Rigidbody Rigidbody;
         public Rigidbody2D Rigidbody2D;
 
-        public void Initialize(GameObject gameObject)
+        public AddUnityComponents(GameObject gameObject)
         {
+            GameObject = gameObject;
+            Transform = gameObject.transform;
             Animator = gameObject.GetComponent<Animator>();
             Collider = gameObject.GetComponent<Collider>();
             Colliders = new List<Collider>();
@@ -26,8 +31,64 @@ namespace BartekNizio.Unity.Template.Entitas
             Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         }
 
-        public void AddComponents(GameEntity entity)
+        public void AddComponents(Entity entity)
         {
+            switch (entity)
+            {
+                case GameEntity gameEntity:
+                    AddComponents(gameEntity); break;
+                case MetaEntity metaEntity:
+                    AddComponents(metaEntity); break;
+                case InputEntity inputEntity:
+                    AddComponents(inputEntity); break;
+                case UiEntity uiEntity:
+                    AddComponents(uiEntity); break;
+            }
+        }
+
+        private void AddComponents(GameEntity entity)
+        {
+            entity.AddGameObject(GameObject);
+            entity.AddTransform(Transform);
+            if(Animator) entity.AddAnimator(Animator);
+            if(Collider) entity.AddCollider(Collider);
+            if(Collider2D) entity.AddCollider2D(Collider2D);
+            if(Rigidbody) entity.AddRigidbody(Rigidbody);
+            if(Rigidbody2D) entity.AddRigidbody2D(Rigidbody2D);
+            if(Colliders.Count > 0) entity.AddColliderList(Colliders);
+            if(Colliders2D.Count > 0) entity.AddCollider2DList(Colliders2D);
+        }
+        
+        private void AddComponents(MetaEntity entity)
+        {
+            entity.AddGameObject(GameObject);
+            entity.AddTransform(Transform);
+            if(Animator) entity.AddAnimator(Animator);
+            if(Collider) entity.AddCollider(Collider);
+            if(Collider2D) entity.AddCollider2D(Collider2D);
+            if(Rigidbody) entity.AddRigidbody(Rigidbody);
+            if(Rigidbody2D) entity.AddRigidbody2D(Rigidbody2D);
+            if(Colliders.Count > 0) entity.AddColliderList(Colliders);
+            if(Colliders2D.Count > 0) entity.AddCollider2DList(Colliders2D);
+        }
+        
+        private void AddComponents(InputEntity entity)
+        {
+            entity.AddGameObject(GameObject);
+            entity.AddTransform(Transform);
+            if(Animator) entity.AddAnimator(Animator);
+            if(Collider) entity.AddCollider(Collider);
+            if(Collider2D) entity.AddCollider2D(Collider2D);
+            if(Rigidbody) entity.AddRigidbody(Rigidbody);
+            if(Rigidbody2D) entity.AddRigidbody2D(Rigidbody2D);
+            if(Colliders.Count > 0) entity.AddColliderList(Colliders);
+            if(Colliders2D.Count > 0) entity.AddCollider2DList(Colliders2D);
+        }
+        
+        private void AddComponents(UiEntity entity)
+        {
+            entity.AddGameObject(GameObject);
+            entity.AddTransform(Transform);
             if(Animator) entity.AddAnimator(Animator);
             if(Collider) entity.AddCollider(Collider);
             if(Collider2D) entity.AddCollider2D(Collider2D);

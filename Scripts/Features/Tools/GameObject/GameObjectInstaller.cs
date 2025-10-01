@@ -7,13 +7,13 @@ namespace BartekNizio.Unity.Template.Entitas
 		public override void InstallBindings()
 		{
 			BindGameObjectEntityComponents();
-			Container.Bind<GameObjectEntityComponentService>().AsSingle();
+			Container.Bind<ObjectEntityService>().AsSingle();
 		}
 
 		private void BindGameObjectEntityComponents()
 		{
-			foreach ( var type in GameObjectEntityComponentService.GetAutoComponents() )  {
-				Container.Bind<IGameObjectEntityComponent>().To( type ).AsSingle();
+			foreach ( var type in ObjectEntityService.GetAutoComponents() )  {
+				Container.Bind<IObjectEntityComponent>().To( type ).AsSingle();
 			}
 		}
 	}
