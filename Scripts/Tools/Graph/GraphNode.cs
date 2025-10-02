@@ -5,12 +5,14 @@ namespace BartekNizio.Unity.Template.Entitas
 	public class GraphNode<T>
 	{
 		public T Value { get; private set; }
+		public int Index { get; private set; }
 		public List<GraphNode<T>> NextNodes { get; private set; }
 		public List<GraphNode<T>> PrevNodes { get; private set; }
 
-		public GraphNode(T value)
+		public GraphNode(T value, int index)
 		{
 			Value = value;
+			Index = index;
 			NextNodes = new List<GraphNode<T>>();
 			PrevNodes = new List<GraphNode<T>>();
 		}

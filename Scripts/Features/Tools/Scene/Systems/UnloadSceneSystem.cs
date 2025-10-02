@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entitas;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -28,14 +29,24 @@ namespace BartekNizio.Unity.Template.Entitas
 		protected override void Execute(List<MetaEntity> entities)
 		{
 			_contextService.StartContextReset(_contexts.game);
+			
 			var unloadEntity = _contexts.meta.sceneUnloadRequestEntity;
-			var sceneIndex = unloadEntity.index.Value;
-			var op = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByBuildIndex(sceneIndex));
-			op.completed += _ => {
+			AsyncOperation unloadOperation = null;
+			if (unloadEntity.hasIndex)
+			{
+				var sceneIndex = unloadEntity.index.Value;
+				unloadOperation = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByBuildIndex(sceneIndex));
+			}
+			else if(unloadEntity.hasSceneName)
+			{
+				var sceneName = unloadEntity.sceneName.Value;
+				unloadOperation = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(sceneName));
+			}
+			
+			unloadOperation.completed += _ => {
 				_contextService.EndContextReset(_contexts.game);
 			};
-			
-			unloadEntity.AddSceneUnloading(op);
+			unloadEntity.AddSceneUnloading(unloadOperation);
 			unloadEntity.isSceneUnloadRequest = false;
 		}
 	}

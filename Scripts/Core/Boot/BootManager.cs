@@ -14,6 +14,7 @@ namespace BartekNizio.Unity.Template.Entitas
 			var uiSceneOperation = SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
 			uiSceneOperation.completed += _ => {
 				SceneManager.UnloadSceneAsync(0);
+				Contexts.sharedInstance.meta.isBootFinished = true;
 			};
 		}
 	}

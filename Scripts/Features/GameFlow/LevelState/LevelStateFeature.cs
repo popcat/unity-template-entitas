@@ -5,7 +5,6 @@ namespace BartekNizio.Unity.Template.Entitas
         public LevelStateFeature(Contexts contexts)
         {
             Add(new LevelStateInitializationSystem(contexts));
-            Add(new LevelStateSystem(contexts));
         }
     }
 }

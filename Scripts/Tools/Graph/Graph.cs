@@ -7,22 +7,35 @@ namespace BartekNizio.Unity.Template.Entitas
 	{
 		public GraphNode<T> StartNode { get; private set; }
 		public GraphNode<T> CurrentNode { get; private set; }
-		private List<GraphNode<T>> _graphNodes = new ();
+		private readonly List<GraphNode<T>> _nodes = new ();
 
-		private void SetOrigin(GraphNode<T> node)
+		public bool SetCurrentNode(int index)
 		{
-			StartNode = node;
-			CurrentNode = node;
+			foreach (var node in _nodes)
+			{
+				if (node.Index == index)
+				{
+					CurrentNode = node;
+					return true;
+				}
+			}
+
+			return false;
 		}
 
-		public GraphNode<T> AddNode(T value, params GraphNode<T>[] prevNodes)
+		public int GetCurrentNodeIndex()
 		{
-			var node = new GraphNode<T>(value);
+			return CurrentNode.Index;
+		}
+
+		public GraphNode<T> AddNode(T value, int index, params GraphNode<T>[] prevNodes)
+		{
+			var node = new GraphNode<T>(value, index);
 			foreach (var prevNode in prevNodes) {
 				node.AddPrevNode(prevNode);
 				prevNode?.AddNextNode(node);
 			}
-			_graphNodes.Add(node);
+			_nodes.Add(node);
 			
 			if(StartNode == null) SetOrigin(node);
 			return node;
@@ -41,7 +54,7 @@ namespace BartekNizio.Unity.Template.Entitas
 			CurrentNode = CurrentNode.NextNodes[pathIndex];
 			return true;
 		}
-		
+
 		public bool MoveNext(GraphNode<T> node)
 		{
 			if (CurrentNode.NextNodes == null || CurrentNode.NextNodes.Count == 0) {
@@ -54,6 +67,12 @@ namespace BartekNizio.Unity.Template.Entitas
 
 			CurrentNode = node;
 			return true;
+		}
+
+		private void SetOrigin(GraphNode<T> node)
+		{
+			StartNode = node;
+			CurrentNode = node;
 		}
 	}
 }

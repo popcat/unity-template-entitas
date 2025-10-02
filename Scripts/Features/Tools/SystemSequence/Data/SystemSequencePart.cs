@@ -17,6 +17,7 @@ namespace BartekNizio.Unity.Template.Entitas
 			_entity = entity;
 			_startSequence = start;
 			_endSequence = end;
+			_contexts = contexts;
 		}
 
 		public void Invoke()

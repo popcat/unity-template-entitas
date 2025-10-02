@@ -4,7 +4,7 @@
 	{
 		public LevelMapFeature(Contexts contexts)
 		{
-			Add(new LoadLevelMapSystem(contexts));
+			Add(new LevelMapInitializationSystem(contexts));
 		}
 	}
 }
