@@ -14,6 +14,7 @@ namespace BartekNizio.Unity.Template.Entitas
             
             Add(new GameFlowFeature(contexts));
             Add(new InputFeature(contexts));
+            Add(new PlayerFeature(contexts));
             Add(new CameraFeature(contexts));
         }
     }

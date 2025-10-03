@@ -6,8 +6,6 @@ namespace BartekNizio.Unity.Template.Entitas
 	[CreateAssetMenu(fileName = "Input Config", menuName = "Config/Input Config")]
 	public class InputConfig : ScriptableObject
 	{
-		public InputActionAsset inputActionAsset;
-
 		[Space]
 		public float dragThreshold;
 		[Space]

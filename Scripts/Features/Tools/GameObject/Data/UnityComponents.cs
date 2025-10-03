@@ -15,6 +15,7 @@ namespace BartekNizio.Unity.Template.Entitas
         public List<Collider2D> Colliders2D;
         public Rigidbody Rigidbody;
         public Rigidbody2D Rigidbody2D;
+        public CharacterController CharacterController;
 
         public AddUnityComponents(GameObject gameObject)
         {
@@ -29,6 +30,7 @@ namespace BartekNizio.Unity.Template.Entitas
             gameObject.GetComponents(Colliders2D);
             Rigidbody = gameObject.GetComponent<Rigidbody>();
             Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+            CharacterController = gameObject.GetComponent<CharacterController>();
         }
 
         public void AddComponents(Entity entity)
@@ -55,6 +57,7 @@ namespace BartekNizio.Unity.Template.Entitas
             if(Collider2D) entity.AddCollider2D(Collider2D);
             if(Rigidbody) entity.AddRigidbody(Rigidbody);
             if(Rigidbody2D) entity.AddRigidbody2D(Rigidbody2D);
+            if(CharacterController) entity.AddCharacterController(CharacterController);
             if(Colliders.Count > 0) entity.AddColliderList(Colliders);
             if(Colliders2D.Count > 0) entity.AddCollider2DList(Colliders2D);
         }
@@ -68,6 +71,7 @@ namespace BartekNizio.Unity.Template.Entitas
             if(Collider2D) entity.AddCollider2D(Collider2D);
             if(Rigidbody) entity.AddRigidbody(Rigidbody);
             if(Rigidbody2D) entity.AddRigidbody2D(Rigidbody2D);
+            if(CharacterController) entity.AddCharacterController(CharacterController);
             if(Colliders.Count > 0) entity.AddColliderList(Colliders);
             if(Colliders2D.Count > 0) entity.AddCollider2DList(Colliders2D);
         }

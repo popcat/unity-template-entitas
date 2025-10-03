@@ -2,7 +2,7 @@ using Entitas;
 using UnityEngine;
 using Zenject;
 
-namespace BartekNizio.Unity.Template.Entitas
+namespace BartekNizio.Unity.Template.Entitas.TopDownVehicleController
 {
     public class PlayerControllerSystem : IExecuteSystem
     {

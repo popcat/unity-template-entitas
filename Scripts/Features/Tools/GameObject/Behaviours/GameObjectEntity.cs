@@ -14,7 +14,7 @@ namespace BartekNizio.Unity.Template.Entitas
 		
 		protected override Entity CreatEntity()
 		{
-			return _contexts.game.CreateEntity();
+			return Contexts.game.CreateEntity();
 		}
 
 		protected override void AddComponent(IObjectEntityComponent component)

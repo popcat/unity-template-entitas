@@ -4,7 +4,6 @@ namespace BartekNizio.Unity.Template.Entitas
     {
         public PlayerFeature(Contexts contexts)
         {
-            Add(new PlayerControllerSystem(contexts));
         }
     }
 }

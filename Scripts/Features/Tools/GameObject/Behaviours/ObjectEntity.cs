@@ -9,14 +9,15 @@ namespace BartekNizio.Unity.Template.Entitas
 	public abstract class ObjectEntity : MonoBehaviour
 	{
 		public Entity Entity => _entityWrapper.Entity;
-
+		public Contexts Contexts { get; private set; }
+		
 		//[Dropdown("GetAutoComponents")]
+
 		[SerializeField]
 		private List<string> simpleComponents;
 
 		protected EntityWrapper _entityWrapper;
 		protected AddUnityComponents _addUnityComponents;
-		protected Contexts _contexts;
 		protected ObjectEntityService ObjectEntityService;
 		
 		protected bool _initialized;
@@ -25,19 +26,15 @@ namespace BartekNizio.Unity.Template.Entitas
 		[Inject]
 		private void Initialize(Contexts contexts, ObjectEntityService objectEntityService)
 		{
-			_contexts = contexts;
+			Contexts = contexts;
 			ObjectEntityService = objectEntityService;
 			_addUnityComponents = new AddUnityComponents(gameObject);
-		}
-
-		private void Awake()
-		{
-			enabled = false;
 		}
 
 		private void Start()
 		{
 			CreateDefaultEntity();
+			enabled = false;
 		}
 
 		protected abstract Entity CreatEntity();
@@ -68,7 +65,7 @@ namespace BartekNizio.Unity.Template.Entitas
 				return;
 			}
 			
-			if (_initialized || _contexts == null) {
+			if (_initialized || Contexts == null) {
 				return;
 			}
 			
