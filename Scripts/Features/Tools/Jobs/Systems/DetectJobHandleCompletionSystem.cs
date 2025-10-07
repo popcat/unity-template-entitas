@@ -7,16 +7,15 @@ namespace BartekNizio.Unity.Template.Entitas
 	{
 		private readonly Contexts _contexts;
 		private readonly IGroup<GameEntity> _jobGroup;
-		private readonly List<GameEntity> _jobGroupCache = new ();
+		private readonly List<GameEntity> _jobGroupCache = new();
 
-		public DetectJobHandleCompletionSystem(Contexts contexts)
-		{
+		public DetectJobHandleCompletionSystem(Contexts contexts) {
 			_contexts = contexts;
-			_jobGroup = _contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.JobDependencyHandle).NoneOf(GameMatcher.JobDependencyCompleted));
+			_jobGroup = _contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.JobDependencyHandle)
+				.NoneOf(GameMatcher.JobDependencyCompleted));
 		}
-		
-		public void Execute()
-		{
+
+		public void Execute() {
 			foreach (var jobEntity in _jobGroup.GetEntities(_jobGroupCache)) {
 				if (jobEntity.jobDependencyHandle.instance.IsCompleted) {
 					jobEntity.jobDependencyHandle.instance.Complete();

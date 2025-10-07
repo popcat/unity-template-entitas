@@ -7,28 +7,26 @@ namespace BartekNizio.Unity.Template.Entitas
 	{
 		private readonly Contexts _contexts;
 
-		public GameStateInitializationSystem(Contexts contexts) : base(contexts.meta)
-		{
+		public GameStateInitializationSystem(Contexts contexts) : base(contexts.meta) {
 			_contexts = contexts;
 		}
 
-		protected override ICollector<MetaEntity> GetTrigger(IContext<MetaEntity> context)
-		{
+		protected override ICollector<MetaEntity> GetTrigger(IContext<MetaEntity> context) {
 			return context.CreateCollector(MetaMatcher.BootFinished);
 		}
 
-		protected override bool Filter(MetaEntity entity)
-		{
+		protected override bool Filter(MetaEntity entity) {
 			return entity.isBootFinished;
 		}
 
-		protected override void Execute(List<MetaEntity> entities)
-		{
+		protected override void Execute(List<MetaEntity> entities) {
 			var entity = _contexts.meta.CreateEntity();
 			entity.AddGameState(GameState.None, GameState.None);
 			entity.AddStateManager(new StateManager(
-				entity, (e, st) => { ((MetaEntity)e).ReplaceGameState(
-					(GameState)st, ((MetaEntity)e).gameState.Current); }));
+				entity, (e, st) => {
+					((MetaEntity)e).ReplaceGameState(
+						(GameState)st, ((MetaEntity)e).gameState.Current);
+				}));
 		}
 	}
 }

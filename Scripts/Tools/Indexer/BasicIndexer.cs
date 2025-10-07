@@ -4,19 +4,16 @@
 	{
 		protected uint _index;
 
-		public uint GetIndex()
-		{
+		public uint GetIndex() {
 			return _index;
 		}
-		
-		public uint Increment()
-		{
+
+		public uint Increment() {
 			_index++;
 			return _index;
 		}
 
-		public void Reset()
-		{
+		public void Reset() {
 			_index = 0;
 		}
 	}

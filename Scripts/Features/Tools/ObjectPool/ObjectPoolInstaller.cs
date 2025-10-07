@@ -1,5 +1,5 @@
-﻿using Zenject;
-using UnityEngine;
+﻿using UnityEngine;
+using Zenject;
 
 namespace BartekNizio.Unity.Template.Entitas
 {
@@ -7,10 +7,9 @@ namespace BartekNizio.Unity.Template.Entitas
 	{
 		public Transform objectPoolRoot;
 
-		public override void InstallBindings()
-		{
+		public override void InstallBindings() {
 			Container.Bind<GameObjectPoolService>().To<GameObjectPoolService>().AsSingle().NonLazy();
-			Container.BindInstance( objectPoolRoot ).WhenInjectedInto<GameObjectPoolService>();
+			Container.BindInstance(objectPoolRoot).WhenInjectedInto<GameObjectPoolService>();
 		}
 	}
 }

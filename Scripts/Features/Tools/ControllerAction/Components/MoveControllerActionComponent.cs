@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace BartekNizio.Unity.Template.Entitas
 {
-    [Game, Meta]
-    public class MoveControllerActionComponent : IComponent
-    {
-        public Vector2 Value;
-        public InputActionStatus Status;
-    }
+	[Game]
+	public class MoveControllerActionComponent : IComponent
+	{
+		public InputActionStatus Status;
+		public Vector2 Value;
+	}
 }

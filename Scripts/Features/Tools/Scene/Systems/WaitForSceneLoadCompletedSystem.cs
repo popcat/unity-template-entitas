@@ -6,14 +6,18 @@ namespace BartekNizio.Unity.Template.Entitas
 	{
 		private readonly Contexts _contexts;
 
-		public WaitForSceneLoadCompletedSystem(Contexts contexts)
-		{
+		public WaitForSceneLoadCompletedSystem(Contexts contexts) {
 			_contexts = contexts;
 		}
-		public void Execute()
-		{
-			if(_contexts.meta.hasSceneLoading == false) return;
-			if(_contexts.meta.sceneLoading.loadOperation.isDone == false) return;
+
+		public void Execute() {
+			if (_contexts.meta.hasSceneLoading == false) {
+				return;
+			}
+
+			if (_contexts.meta.sceneLoading.loadOperation.isDone == false) {
+				return;
+			}
 
 			var loadSceneEntity = _contexts.meta.sceneLoadingEntity;
 			loadSceneEntity.isSceneLoadCompleted = true;

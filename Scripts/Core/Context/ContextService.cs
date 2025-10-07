@@ -8,15 +8,13 @@ namespace BartekNizio.Unity.Template.Entitas
 		public Action<IContext> onBeforeContextReset;
 		public Action<IContext> onContextResetDone;
 
-		public void StartContextReset(IContext context)
-		{
-			onBeforeContextReset.Invoke( context );
+		public void StartContextReset(IContext context) {
+			onBeforeContextReset.Invoke(context);
 		}
 
-		public void EndContextReset(IContext context)
-		{
+		public void EndContextReset(IContext context) {
 			context.Reset();
-			onContextResetDone.Invoke( context );
+			onContextResetDone.Invoke(context);
 		}
 	}
 }

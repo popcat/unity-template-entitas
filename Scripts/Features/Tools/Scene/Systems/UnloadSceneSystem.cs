@@ -8,44 +8,38 @@ namespace BartekNizio.Unity.Template.Entitas
 {
 	public class UnloadSceneSystem : ReactiveSystem<MetaEntity>
 	{
-		[Inject] private readonly ContextService _contextService;
 		private readonly Contexts _contexts;
 
-		public UnloadSceneSystem(Contexts contexts) : base(contexts.meta)
-		{
+		[Inject]
+		private readonly ContextService _contextService;
+
+		public UnloadSceneSystem(Contexts contexts) : base(contexts.meta) {
 			_contexts = contexts;
 		}
 
-		protected override ICollector<MetaEntity> GetTrigger(IContext<MetaEntity> context)
-		{
+		protected override ICollector<MetaEntity> GetTrigger(IContext<MetaEntity> context) {
 			return context.CreateCollector(MetaMatcher.SceneUnloadRequest);
 		}
 
-		protected override bool Filter(MetaEntity entity)
-		{
+		protected override bool Filter(MetaEntity entity) {
 			return entity.isSceneUnloadRequest;
 		}
 
-		protected override void Execute(List<MetaEntity> entities)
-		{
+		protected override void Execute(List<MetaEntity> entities) {
 			_contextService.StartContextReset(_contexts.game);
-			
+
 			var unloadEntity = _contexts.meta.sceneUnloadRequestEntity;
 			AsyncOperation unloadOperation = null;
-			if (unloadEntity.hasIndex)
-			{
+			if (unloadEntity.hasIndex) {
 				var sceneIndex = unloadEntity.index.Value;
 				unloadOperation = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByBuildIndex(sceneIndex));
 			}
-			else if(unloadEntity.hasSceneName)
-			{
+			else if (unloadEntity.hasSceneName) {
 				var sceneName = unloadEntity.sceneName.Value;
 				unloadOperation = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(sceneName));
 			}
-			
-			unloadOperation.completed += _ => {
-				_contextService.EndContextReset(_contexts.game);
-			};
+
+			unloadOperation.completed += _ => { _contextService.EndContextReset(_contexts.game); };
 			unloadEntity.AddSceneUnloading(unloadOperation);
 			unloadEntity.isSceneUnloadRequest = false;
 		}

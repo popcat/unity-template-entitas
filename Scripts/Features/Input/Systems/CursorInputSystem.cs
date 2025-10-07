@@ -6,17 +6,16 @@ namespace BartekNizio.Unity.Template.Entitas
 {
 	public class CursorInputSystem : IExecuteSystem
 	{
-		[Inject] 
-		private InputConfig _inputConfig;
 		private readonly Contexts _contexts;
 
-		public CursorInputSystem(Contexts contexts)
-		{
+		[Inject]
+		private InputConfig _inputConfig;
+
+		public CursorInputSystem(Contexts contexts) {
 			_contexts = contexts;
 		}
-		
-		public void Execute()
-		{
+
+		public void Execute() {
 			var cursorInputAction = _inputConfig.cursorPositionInputAction;
 
 			if (_contexts.input.hasCursorInput == false) {

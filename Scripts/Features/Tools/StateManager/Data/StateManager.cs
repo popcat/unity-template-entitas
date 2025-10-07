@@ -6,22 +6,20 @@ namespace BartekNizio.Unity.Template.Entitas
 	public class StateManager
 	{
 		private readonly Action<Entity, object> _setStateAction;
-		public Entity Entity { get; private set; }
 
-		public StateManager(Entity entity,  Action<Entity, object> setState)
-		{
+		public StateManager(Entity entity, Action<Entity, object> setState) {
 			Entity = entity;
 			_setStateAction = setState;
 		}
 
-		public void SetState<T>(T state)
-		{
+		public Entity Entity { get; }
+
+		public void SetState<T>(T state) {
 			_setStateAction.Invoke(Entity, state);
 			DebugLogger.Log($"New state: {state}");
 		}
 
-		public void RequestState<T>(T state)
-		{
+		public void RequestState<T>(T state) {
 			if (Entity is GameEntity) {
 				((GameEntity)Entity).AddNextStateRequest(state);
 			}

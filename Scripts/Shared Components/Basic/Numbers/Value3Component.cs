@@ -4,9 +4,9 @@ using Unity.Mathematics;
 
 namespace BartekNizio.Unity.Template.Entitas
 {
-    [Game, Meta, Input, Ui, Event(EventTarget.Self), Event(EventTarget.Any)]
-    public class Value3Component : IComponent
-    {
-        public float3 Value;
-    }
+	[Game, Meta, Input, Ui, Event(EventTarget.Self), Event(EventTarget.Any)]
+	public class Value3Component : IComponent
+	{
+		public float3 Value;
+	}
 }

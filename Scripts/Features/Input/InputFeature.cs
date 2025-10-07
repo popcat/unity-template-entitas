@@ -2,8 +2,7 @@
 {
 	public class InputFeature : InjectableFeature
 	{
-		public InputFeature(Contexts contexts)
-		{
+		public InputFeature(Contexts contexts) {
 			Add(new CursorInputSystem(contexts));
 			Add(new EnableInputSystem(contexts));
 			Add(new SelectInputSystem(contexts));

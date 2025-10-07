@@ -9,7 +9,7 @@ namespace BartekNizio.Unity.Template.Entitas
 	{
 		public List<PrewarmGameObject> objectsToPrewarm;
 	}
-	
+
 	[Serializable]
 	public class PrewarmGameObject
 	{

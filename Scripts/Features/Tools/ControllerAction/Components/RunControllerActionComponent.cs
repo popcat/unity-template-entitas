@@ -2,9 +2,9 @@ using Entitas;
 
 namespace BartekNizio.Unity.Template.Entitas
 {
-    [Game, Meta]
-    public class RunControllerActionComponent : IComponent
-    {
-        public InputActionStatus Status;
-    }
+	[Game]
+	public class RunControllerActionComponent : IComponent
+	{
+		public InputActionStatus Status;
+	}
 }

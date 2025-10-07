@@ -7,23 +7,19 @@ namespace BartekNizio.Unity.Template.Entitas
 	{
 		private readonly Contexts _contexts;
 
-		public UpdateStateManagerGameSystem(Contexts contexts) : base(contexts.game)
-		{
+		public UpdateStateManagerGameSystem(Contexts contexts) : base(contexts.game) {
 			_contexts = contexts;
 		}
 
-		protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
-		{
+		protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context) {
 			return context.CreateCollector(GameMatcher.NextStateRequest);
 		}
 
-		protected override bool Filter(GameEntity entity)
-		{
+		protected override bool Filter(GameEntity entity) {
 			return entity.hasNextStateRequest;
 		}
 
-		protected override void Execute(List<GameEntity> entities)
-		{
+		protected override void Execute(List<GameEntity> entities) {
 			foreach (var stateManagerEntity in entities) {
 				stateManagerEntity.stateManager.instance.SetState(stateManagerEntity.nextStateRequest.state);
 				stateManagerEntity.RemoveNextStateRequest();

@@ -5,6 +5,5 @@ namespace BartekNizio.Unity.Template.Entitas
 {
 	[Meta, Unique]
 	public class SceneUnloadRequestComponent : IComponent
-	{
-	}
+	{ }
 }

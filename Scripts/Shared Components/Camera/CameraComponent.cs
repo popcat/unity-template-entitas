@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace BartekNizio.Unity.Template.Entitas
 {
-    [Game, Meta, Input, Ui, Event(EventTarget.Self), Event(EventTarget.Any)]
-    public class CameraComponent : IComponent
-    {
-        public Camera Instance;
-    }
+	[Game, Meta, Input, Ui, Event(EventTarget.Self), Event(EventTarget.Any)]
+	public class CameraComponent : IComponent
+	{
+		public Camera Instance;
+	}
 }

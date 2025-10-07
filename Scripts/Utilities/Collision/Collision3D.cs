@@ -4,8 +4,7 @@ namespace BartekNizio.Unity.Template.Entitas
 {
 	public static class Collision3D
 	{
-		public static bool Intersect(Sphere sphere, Box box)
-		{
+		public static bool Intersect(Sphere sphere, Box box) {
 			var x = math.max(box.min.x, math.min(sphere.center.x, box.max.x));
 			var y = math.max(box.min.y, math.min(sphere.center.y, box.max.y));
 			var z = math.max(box.min.z, math.min(sphere.center.z, box.max.z));

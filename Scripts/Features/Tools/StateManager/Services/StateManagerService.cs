@@ -10,7 +10,7 @@ namespace BartekNizio.Unity.Template.Entitas
 			entity.AddStateManager(sm);
 			return sm;
 		}
-		
+
 		public StateManager CreateStateManager(MetaEntity entity, T state)
 		{
 			var sm = new StateManager(entity, state);
@@ -22,10 +22,11 @@ namespace BartekNizio.Unity.Template.Entitas
 		{
 			entity.stateManager.instance.SetState(state);
 		}
-		
+
 		public void SetState(MetaEntity entity, T state)
 		{
 			entity.stateManager.instance.SetState(state);
 		}
 	}
 }*/
+

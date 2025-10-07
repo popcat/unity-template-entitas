@@ -6,26 +6,24 @@ namespace BartekNizio.Unity.Template.Entitas
 {
 	public class LevelStateInitializationSystem : ReactiveSystem<MetaEntity>
 	{
-		[Inject] private readonly LevelMapConfig _levelMapConfig;
 		private readonly Contexts _contexts;
 
-		public LevelStateInitializationSystem(Contexts contexts) : base(contexts.meta)
-		{
+		[Inject]
+		private readonly LevelMapConfig _levelMapConfig;
+
+		public LevelStateInitializationSystem(Contexts contexts) : base(contexts.meta) {
 			_contexts = contexts;
 		}
 
-		protected override ICollector<MetaEntity> GetTrigger(IContext<MetaEntity> context)
-		{
+		protected override ICollector<MetaEntity> GetTrigger(IContext<MetaEntity> context) {
 			return context.CreateCollector(MetaMatcher.GameState);
 		}
 
-		protected override bool Filter(MetaEntity entity)
-		{
+		protected override bool Filter(MetaEntity entity) {
 			return entity.hasGameState;
 		}
 
-		protected override void Execute(List<MetaEntity> entities)
-		{
+		protected override void Execute(List<MetaEntity> entities) {
 			if (_contexts.meta.hasLevelState == false) {
 				var gameplayStateEntity = _contexts.meta.CreateEntity();
 				gameplayStateEntity.AddLevelState(LevelState.None);

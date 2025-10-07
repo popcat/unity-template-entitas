@@ -3,8 +3,7 @@ using Entitas.CodeGeneration.Attributes;
 
 namespace BartekNizio.Unity.Template.Entitas
 {
-    [Meta, Unique, Cleanup(CleanupMode.DestroyEntity)]
-    public class SceneLoadCompletedComponent : IComponent
-    {
-    }
+	[Meta, Unique, Cleanup(CleanupMode.DestroyEntity)]
+	public class SceneLoadCompletedComponent : IComponent
+	{ }
 }

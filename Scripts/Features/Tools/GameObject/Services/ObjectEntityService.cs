@@ -1,33 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 namespace BartekNizio.Unity.Template.Entitas
 {
 	public class ObjectEntityService
 	{
-		private Dictionary<string, IObjectEntityComponent> _dict;
-		public List<IObjectEntityComponent> Components { get; private set; }
-		
-		public ObjectEntityService(List<IObjectEntityComponent> components)
-		{
+		private readonly Dictionary<string, IObjectEntityComponent> _dict;
+
+		public ObjectEntityService(List<IObjectEntityComponent> components) {
 			Components = components;
 			_dict = new Dictionary<string, IObjectEntityComponent>();
-			foreach ( IObjectEntityComponent c in Components ) {
+			foreach (var c in Components) {
 				_dict[c.GetType().Name] = c;
 			}
 		}
 
-		public IObjectEntityComponent GetComponentByName( string name )
-		{
+		public List<IObjectEntityComponent> Components { get; }
+
+		public IObjectEntityComponent GetComponentByName(string name) {
 			return _dict[name];
 		}
 
-		public static IEnumerable<System.Type>  GetAutoComponents()
-		{
-			return System.Reflection.Assembly.GetAssembly( typeof( IObjectEntityComponent ) )
-					.GetTypes()
-					.Where( t => t.IsClass && t.GetInterfaces().Contains( typeof( IObjectEntityComponent ) ) && !t.IsSubclassOf( typeof( MonoBehaviour ) ) );
+		public static IEnumerable<Type> GetAutoComponents() {
+			return Assembly.GetAssembly(typeof(IObjectEntityComponent))
+				.GetTypes()
+				.Where(t => t.IsClass && t.GetInterfaces().Contains(typeof(IObjectEntityComponent)) &&
+				            !t.IsSubclassOf(typeof(MonoBehaviour)));
 		}
 	}
 }

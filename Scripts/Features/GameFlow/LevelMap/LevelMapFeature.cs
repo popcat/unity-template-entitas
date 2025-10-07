@@ -2,8 +2,7 @@
 {
 	public class LevelMapFeature : InjectableFeature
 	{
-		public LevelMapFeature(Contexts contexts)
-		{
+		public LevelMapFeature(Contexts contexts) {
 			Add(new LevelMapInitializationSystem(contexts));
 		}
 	}

@@ -2,8 +2,7 @@
 {
 	public class FixedUpdateSystem : InjectableFeature
 	{
-		public FixedUpdateSystem(Contexts contexts)
-		{
+		public FixedUpdateSystem(Contexts contexts) {
 			Add(new FixedUpdateFeatures(contexts));
 		}
 	}

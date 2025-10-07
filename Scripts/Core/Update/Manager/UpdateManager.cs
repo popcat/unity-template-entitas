@@ -6,56 +6,51 @@ namespace BartekNizio.Unity.Template.Entitas
 {
 	public class UpdateManager : MonoBehaviour
 	{
-		private UpdateSystem  _updateSystem;
-        private FixedUpdateSystem _fixedUpdateSystem;
-        private ContextService _contextService;
+		private ContextService _contextService;
+		private FixedUpdateSystem _fixedUpdateSystem;
+		private UpdateSystem _updateSystem;
 
-        [Inject]
-        private void Init( UpdateSystem updateSystem, FixedUpdateSystem fixedUpdateSystem, DiContainer container, ContextService contextService)
-        {
-            InitCoreSystems( updateSystem, fixedUpdateSystem, container );
-            contextService.onBeforeContextReset += DeactivateReactiveSystems;
-            contextService.onContextResetDone += ActivateReactiveSystems;
-        }
+		private void Update() {
+			_updateSystem.Execute();
+			_updateSystem.Cleanup();
+		}
 
-        private void InitCoreSystems( UpdateSystem updateSystem, FixedUpdateSystem fixedUpdateSystem, DiContainer container )
-        {
-            _updateSystem = updateSystem;
-            _updateSystem.IncjectSelfAndChildren( container );
-            _updateSystem.Initialize();
-            _fixedUpdateSystem = fixedUpdateSystem;
-            _fixedUpdateSystem.IncjectSelfAndChildren( container );
-            _fixedUpdateSystem.Initialize();
-        }
+		private void FixedUpdate() {
+			_fixedUpdateSystem.Execute();
+			_fixedUpdateSystem.Cleanup();
+		}
 
-        private void Update()
-        {
-            _updateSystem.Execute();
-            _updateSystem.Cleanup();
-        }
+		private void OnDestroy() {
+			_updateSystem.TearDown();
+			_fixedUpdateSystem.TearDown();
+		}
 
-        private void FixedUpdate()
-        {
-            _fixedUpdateSystem.Execute();
-            _fixedUpdateSystem.Cleanup();
-        }
+		[Inject]
+		private void Init(UpdateSystem updateSystem, FixedUpdateSystem fixedUpdateSystem, DiContainer container,
+			ContextService contextService) {
+			InitCoreSystems(updateSystem, fixedUpdateSystem, container);
+			contextService.onBeforeContextReset += DeactivateReactiveSystems;
+			contextService.onContextResetDone += ActivateReactiveSystems;
+		}
 
-        private void OnDestroy()
-        {
-            _updateSystem.TearDown();
-            _fixedUpdateSystem.TearDown();
-        }
+		private void InitCoreSystems(UpdateSystem updateSystem, FixedUpdateSystem fixedUpdateSystem,
+			DiContainer container) {
+			_updateSystem = updateSystem;
+			_updateSystem.IncjectSelfAndChildren(container);
+			_updateSystem.Initialize();
+			_fixedUpdateSystem = fixedUpdateSystem;
+			_fixedUpdateSystem.IncjectSelfAndChildren(container);
+			_fixedUpdateSystem.Initialize();
+		}
 
-        private void DeactivateReactiveSystems( IContext context )
-        {
-            _updateSystem.DeactivateReactiveSystems();
-            _fixedUpdateSystem.DeactivateReactiveSystems();
-        }
+		private void DeactivateReactiveSystems(IContext context) {
+			_updateSystem.DeactivateReactiveSystems();
+			_fixedUpdateSystem.DeactivateReactiveSystems();
+		}
 
-        private void ActivateReactiveSystems( IContext context )
-        {
-            _updateSystem.ActivateReactiveSystems();
-            _fixedUpdateSystem.ActivateReactiveSystems();
-        }
-    }
+		private void ActivateReactiveSystems(IContext context) {
+			_updateSystem.ActivateReactiveSystems();
+			_fixedUpdateSystem.ActivateReactiveSystems();
+		}
+	}
 }

@@ -5,15 +5,14 @@ namespace BartekNizio.Unity.Template.Entitas
 {
 	public static class AlgorithmUtility
 	{
-		public static int2[] positionNeighbours = new[] {
+		public static int2[] positionNeighbours = {
 			new int2(1, 0),
 			new int2(-1, 0),
 			new int2(0, 1),
-			new int2(0, -1),
+			new int2(0, -1)
 		};
-		
-		public static HashSet<int> FrontierSearch(int2 startPosition, Dictionary<int2, int> positionsMap)
-		{
+
+		public static HashSet<int> FrontierSearch(int2 startPosition, Dictionary<int2, int> positionsMap) {
 			var frontier = new HashSet<int>();
 			if (!positionsMap.ContainsKey(startPosition)) {
 				return frontier;
@@ -25,11 +24,16 @@ namespace BartekNizio.Unity.Template.Entitas
 
 			while (queue.Count != 0) {
 				var currentPosition = queue.Dequeue();
-				for (int i = 0; i < 4; i++) {
+				for (var i = 0; i < 4; i++) {
 					var nextPosition = currentPosition + positionNeighbours[i];
-					if (!positionsMap.TryGetValue(nextPosition, out var positionIndex)) continue;
-					if(frontier.Contains(positionIndex)) continue;
-					
+					if (!positionsMap.TryGetValue(nextPosition, out var positionIndex)) {
+						continue;
+					}
+
+					if (frontier.Contains(positionIndex)) {
+						continue;
+					}
+
 					queue.Enqueue(nextPosition);
 					frontier.Add(positionIndex);
 				}

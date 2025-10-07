@@ -2,30 +2,38 @@ using UnityEngine;
 
 namespace BartekNizio.Unity.Template.Entitas.Platformer2D
 {
-    public class AddPlatformer2DCharacterController : ObjectEntityComponent
-    {
-        public override void AddComponent(GameObjectEntity objectEntity)
-        {
-            objectEntity.Entity.isPlayerU = true;
-            objectEntity.Entity.AddCharacterController(new CharacterController());
-            objectEntity.Entity.AddControllerAction(objectEntity.Contexts.game.CreateEntity());
+	public class AddPlatformer2DCharacterController : ObjectEntityComponent
+	{
+		[SerializeField]
+		private Character2DPlatformerController _config;
 
-            var actionEntity = (GameEntity)objectEntity.Entity.controllerAction.Entity;
-            actionEntity.AddMoveControllerAction(Vector2.zero, new InputActionStatus());
-            actionEntity.AddRunControllerAction(new InputActionStatus());
-            actionEntity.AddJumpControllerAction(new InputActionStatus());
-        }
+		[SerializeField]
+		private Collider2D _bodyCollider;
 
-        public override void AddComponent(MetaObjectEntity objectEntity)
-        {
-            objectEntity.Entity.isPlayerU = true;
-            objectEntity.Entity.AddCharacterController(new CharacterController());
-            objectEntity.Entity.AddControllerAction(objectEntity.Contexts.meta.CreateEntity());
+		[SerializeField]
+		private Collider2D _feetCollider;
 
-            var actionEntity = (MetaEntity)objectEntity.Entity.controllerAction.Entity;
-            actionEntity.AddMoveControllerAction(Vector2.zero, new InputActionStatus());
-            actionEntity.AddRunControllerAction(new InputActionStatus());
-            actionEntity.AddJumpControllerAction(new InputActionStatus());
-        }
-    }
+		public override void AddComponent(GameObjectEntity objectEntity) {
+			objectEntity.Entity.isPlayerU = true;
+
+			var controllerData = new CharacterControllerData {
+				IsFacingRight = true
+			};
+
+			var controllerSpecs = _config.Specifications;
+			controllerSpecs.BodyCollider = _bodyCollider;
+			controllerSpecs.FeetCollider = _feetCollider;
+
+			objectEntity.Entity.AddPlatformer2DCharacterController(controllerData, controllerSpecs);
+
+
+			objectEntity.Entity.AddControllerAction(objectEntity.Contexts.game.CreateEntity());
+			var actionEntity = objectEntity.Entity.controllerAction.Entity;
+			actionEntity.AddMoveControllerAction(new InputActionStatus(), Vector2.zero);
+			actionEntity.AddRunControllerAction(new InputActionStatus());
+			actionEntity.AddJumpControllerAction(new InputActionStatus());
+		}
+
+		public override void AddComponent(MetaObjectEntity objectEntity) { }
+	}
 }

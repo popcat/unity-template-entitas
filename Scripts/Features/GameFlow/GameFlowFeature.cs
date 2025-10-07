@@ -2,8 +2,7 @@
 {
 	public class GameFlowFeature : InjectableFeature
 	{
-		public GameFlowFeature(Contexts contexts)
-		{
+		public GameFlowFeature(Contexts contexts) {
 			Add(new GameStateFeature(contexts));
 			Add(new LevelStateFeature(contexts));
 			Add(new MainMenuFeature(contexts));
