@@ -28,27 +28,27 @@ namespace BartekNizio.Unity.Template.Entitas.Platformer2D
 
             controllerActionEntity.ReplaceMoveControllerAction(
                 playerControllerEntity.moveInputAction.Value.ReadValue<Vector2>(),
-                new ControllerActionInputStatus
+                new InputActionStatus
                 {
-                    isPressedThisFrame = playerControllerEntity.moveInputAction.Value.WasPressedThisFrame(),
-                    isHold = playerControllerEntity.moveInputAction.Value.IsPressed(),
-                    isReleasedThisFrame = playerControllerEntity.moveInputAction.Value.WasReleasedThisFrame()
+                    isActivatedThisFrame = playerControllerEntity.moveInputAction.Value.WasPressedThisFrame(),
+                    isActive = playerControllerEntity.moveInputAction.Value.IsPressed(),
+                    isDeactivatedThisFrame = playerControllerEntity.moveInputAction.Value.WasReleasedThisFrame()
                 });
             
             controllerActionEntity.ReplaceJumpControllerAction(
-                new ControllerActionInputStatus
+                new InputActionStatus
                 {
-                    isPressedThisFrame = playerControllerEntity.jumpInputAction.Value.WasPressedThisFrame(),
-                    isHold = playerControllerEntity.jumpInputAction.Value.IsPressed(),
-                    isReleasedThisFrame = playerControllerEntity.jumpInputAction.Value.WasReleasedThisFrame()
+                    isActivatedThisFrame = playerControllerEntity.jumpInputAction.Value.WasPressedThisFrame(),
+                    isActive = playerControllerEntity.jumpInputAction.Value.IsPressed(),
+                    isDeactivatedThisFrame = playerControllerEntity.jumpInputAction.Value.WasReleasedThisFrame()
                 });
             
             controllerActionEntity.ReplaceRunControllerAction(
-                new ControllerActionInputStatus
+                new InputActionStatus
                 {
-                    isPressedThisFrame = playerControllerEntity.runInputAction.Value.WasPressedThisFrame(),
-                    isHold = playerControllerEntity.runInputAction.Value.IsPressed(),
-                    isReleasedThisFrame = playerControllerEntity.runInputAction.Value.WasReleasedThisFrame()
+                    isActivatedThisFrame = playerControllerEntity.runInputAction.Value.WasPressedThisFrame(),
+                    isActive = playerControllerEntity.runInputAction.Value.IsPressed(),
+                    isDeactivatedThisFrame = playerControllerEntity.runInputAction.Value.WasReleasedThisFrame()
                 });
         }
     }

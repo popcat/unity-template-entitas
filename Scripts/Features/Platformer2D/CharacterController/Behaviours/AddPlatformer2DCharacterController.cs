@@ -11,7 +11,9 @@ namespace BartekNizio.Unity.Template.Entitas.Platformer2D
             objectEntity.Entity.AddControllerAction(objectEntity.Contexts.game.CreateEntity());
 
             var actionEntity = (GameEntity)objectEntity.Entity.controllerAction.Entity;
-            actionEntity.AddMoveControllerAction(Vector2.zero, new ControllerActionInputStatus());
+            actionEntity.AddMoveControllerAction(Vector2.zero, new InputActionStatus());
+            actionEntity.AddRunControllerAction(new InputActionStatus());
+            actionEntity.AddJumpControllerAction(new InputActionStatus());
         }
 
         public override void AddComponent(MetaObjectEntity objectEntity)
@@ -21,7 +23,9 @@ namespace BartekNizio.Unity.Template.Entitas.Platformer2D
             objectEntity.Entity.AddControllerAction(objectEntity.Contexts.meta.CreateEntity());
 
             var actionEntity = (MetaEntity)objectEntity.Entity.controllerAction.Entity;
-            actionEntity.AddMoveControllerAction(Vector2.zero, new ControllerActionInputStatus());
+            actionEntity.AddMoveControllerAction(Vector2.zero, new InputActionStatus());
+            actionEntity.AddRunControllerAction(new InputActionStatus());
+            actionEntity.AddJumpControllerAction(new InputActionStatus());
         }
     }
 }

@@ -7,6 +7,6 @@ namespace BartekNizio.Unity.Template.Entitas
     public class MoveControllerActionComponent : IComponent
     {
         public Vector2 Value;
-        public ControllerActionInputStatus Status;
+        public InputActionStatus Status;
     }
 }

@@ -10,28 +10,21 @@ namespace BartekNizio.Unity.Template.Entitas
 	{
 		public Entity Entity => _entityWrapper.Entity;
 		public Contexts Contexts { get; private set; }
-		
-		//[Dropdown("GetAutoComponents")]
 
-		[SerializeField]
-		private List<string> simpleComponents;
-
+		protected bool _initialized;
 		protected EntityWrapper _entityWrapper;
 		protected AddUnityComponents _addUnityComponents;
-		protected ObjectEntityService ObjectEntityService;
-		
-		protected bool _initialized;
-		protected List<IObjectEntityComponent> _interfaces;
+		protected List<IObjectEntityComponent> _objectEntityComponents;
 
 		[Inject]
 		private void Initialize(Contexts contexts, ObjectEntityService objectEntityService)
 		{
 			Contexts = contexts;
-			ObjectEntityService = objectEntityService;
 			_addUnityComponents = new AddUnityComponents(gameObject);
+			GetGameObjectEntityComponents();
 		}
 
-		private void Start()
+		private void Awake()
 		{
 			CreateDefaultEntity();
 			enabled = false;
@@ -50,9 +43,7 @@ namespace BartekNizio.Unity.Template.Entitas
 			
 			_entityWrapper = new EntityWrapper(CreatEntity());
 			AddUnityComponents();
-			GetInterfaces();
-			
-			foreach ( var i in _interfaces )
+			foreach ( var i in _objectEntityComponents )
 				AddComponent(i);
 			
 			_initialized = true;
@@ -72,41 +63,19 @@ namespace BartekNizio.Unity.Template.Entitas
 			InitializeEntity();
 		}
 
-		private void GetInterfaces()
+		private void GetGameObjectEntityComponents()
 		{
-			if ( _interfaces == null )
-				_interfaces = new List<IObjectEntityComponent>();
+			if ( _objectEntityComponents == null )
+				_objectEntityComponents = new List<IObjectEntityComponent>();
 			else
-				_interfaces.Clear();
-			GetSimpleInterfaces();
-			GetMonoInterfaces();
+				_objectEntityComponents.Clear();
+			
+			GetComponents(_objectEntityComponents);
 		}
 
 		private void AddUnityComponents()
 		{
 			_addUnityComponents.AddComponents(Entity);
 		}
-		
-		private void GetSimpleInterfaces()
-		{
-			foreach ( var name in simpleComponents ) {
-				_interfaces.Add( ObjectEntityService.GetComponentByName( name ) );
-			}
-		}
-
-		private void GetMonoInterfaces()
-		{
-			foreach (var component in GetComponents<IObjectEntityComponent>()) {
-				if (_interfaces.Contains(component)) {
-					continue;
-				}
-				_interfaces.Add(component);
-			}
-		}
-
-		/*public List<string> GetAutoComponents()
-		{
-			return GameObjectEntityComponentService.GetAutoComponents().Select( t => t.Name ).ToList();
-		}*/
 	}
 }
